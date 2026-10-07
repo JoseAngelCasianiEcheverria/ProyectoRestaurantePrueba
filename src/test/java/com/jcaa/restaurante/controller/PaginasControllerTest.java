@@ -105,6 +105,28 @@ class PaginasControllerTest {
     }
 
     @Test
+    @DisplayName("POST /productos rechaza un precio que desborda NUMERIC(10, 2)")
+    void crearProductoConPrecioDesbordado() throws Exception {
+        mockMvc.perform(post("/productos")
+                        .param("nombre", "Producto desbordado")
+                        .param("precio", "123456789.00"))
+                .andExpect(status().is4xxClientError());
+
+        assertThat(productoRepository.findAll()).isEmpty();
+    }
+
+    @Test
+    @DisplayName("POST /productos rechaza un precio con exceso de decimales")
+    void crearProductoConPrecioDemasiadosDecimales() throws Exception {
+        mockMvc.perform(post("/productos")
+                        .param("nombre", "Producto con decimales de mas")
+                        .param("precio", "10.005"))
+                .andExpect(status().is4xxClientError());
+
+        assertThat(productoRepository.findAll()).isEmpty();
+    }
+
+    @Test
     @DisplayName("GET /productos/99/editar devuelve 404 si el producto no existe")
     void editarProductoInexistente() throws Exception {
         mockMvc.perform(get("/productos/99/editar"))

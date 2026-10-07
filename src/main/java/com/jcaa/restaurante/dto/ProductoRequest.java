@@ -1,6 +1,7 @@
 package com.jcaa.restaurante.dto;
 
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,6 +18,7 @@ public class ProductoRequest {
 
     @NotNull(message = "El precio es obligatorio")
     @DecimalMin(value = "0.01", message = "El precio debe ser mayor que cero")
+    @Digits(integer = 8, fraction = 2, message = "El precio admite maximo 8 digitos enteros y 2 decimales")
     private BigDecimal precio;
 
     private boolean disponible = true;
