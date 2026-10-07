@@ -30,7 +30,13 @@ jobs:
       - name: Descargar el codigo
         uses: actions/checkout@v6
         with:
-          persist-credentials: false
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Configurar identidad de git
+        run: |
+          git config user.name "opencode-agent[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Ejecutar el agente
         uses: anomalyco/opencode/github@latest
@@ -54,7 +60,20 @@ jobs:
       - name: Descargar el codigo
         uses: actions/checkout@v6
         with:
-          persist-credentials: false
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Configurar identidad de git
+        run: |
+          git config user.name "opencode-agent[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Instalar Java y Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
 
       - name: Ejecutar el agente
         uses: anomalyco/opencode/github@latest
@@ -72,7 +91,7 @@ jobs:
             - No cambies dependencias, no migres versiones y no reformatees codigo.
             - Antes de reportar algo, comprobalo leyendo el archivo y citando la
               ruta y el numero de linea.
-            - Si no encuentras nada con certeza, no abras nada y termina.
+            - Si no encuentras algo con certeza, no abras nada y termina.
             - Si encuentras algo, abre un issue por hallazgo con la ruta, la
               linea, el motivo y una propuesta de correccion.
         env:
