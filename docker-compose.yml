@@ -1,0 +1,24 @@
+# Credenciales del PostgreSQL de DESARROLLO. No son secretos:
+# viven en el repositorio a proposito para que el proyecto clone y arranque.
+# Las de produccion van en variables de entorno (ver README.md).
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: restaurante-postgres
+    environment:
+      POSTGRES_DB: restaurante
+      POSTGRES_USER: restaurante
+      POSTGRES_PASSWORD: restaurante
+    ports:
+      # Solo en loopback: el puerto no se expone a la red local.
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U restaurante -d restaurante"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres-data:

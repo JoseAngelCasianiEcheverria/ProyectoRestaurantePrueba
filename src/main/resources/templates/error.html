@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Error')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: cabecera}"></header>
+
+<main class="contenido">
+    <h1 th:text="${titulo}">Error</h1>
+    <p th:text="${mensaje}">Ocurrio un error.</p>
+
+    <ul class="error" th:if="${errores}">
+        <li th:each="e : ${errores}" th:text="${e.value}">Campo</li>
+    </ul>
+
+    <a class="boton boton-suave" th:href="@{/productos}">Volver a productos</a>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

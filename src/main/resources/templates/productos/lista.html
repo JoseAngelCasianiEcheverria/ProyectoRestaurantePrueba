@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Productos')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: cabecera}"></header>
+
+<main class="contenido">
+    <h1>Productos</h1>
+
+    <div class="aviso-ok" th:if="${mensaje}" th:text="${mensaje}"></div>
+    <div class="aviso-error" th:if="${error}" th:text="${error}"></div>
+
+    <form class="filtro" method="get" th:action="@{/productos}">
+        <input type="search" name="q" th:value="${busqueda}" placeholder="Buscar por nombre">
+        <button type="submit">Buscar</button>
+        <a class="boton boton-suave" th:href="@{/productos}">Limpiar</a>
+    </form>
+
+    <table class="tabla" th:if="${!#lists.isEmpty(productos)}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Precio</th>
+            <th>Disponible</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${productos}">
+            <td th:text="${p.id}">1</td>
+            <td th:text="${p.nombre}">Nombre</td>
+            <td th:text="${p.descripcion}">Descripcion</td>
+            <td th:text="${#numbers.formatDecimal(p.precio, 1, 2)}">0.00</td>
+            <td th:text="${p.disponible ? 'Si' : 'No'}">Si</td>
+            <td class="acciones">
+                <a th:href="@{/productos/{id}/editar(id=${p.id})}">Editar</a>
+                <form method="post" th:action="@{/productos/{id}/eliminar(id=${p.id})}"
+                      onsubmit="return confirm('Eliminar este producto?');">
+                    <button type="submit" class="boton boton-peligro">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${#lists.isEmpty(productos)}" class="vacio">
+        No hay productos que coincidan con la busqueda.
+    </p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

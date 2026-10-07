@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${titulo})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: cabecera}"></header>
+
+<main class="contenido">
+    <h1 th:text="${titulo}">Nuevo producto</h1>
+
+    <form class="formulario" method="post" th:action="${accion}" th:object="${formulario}">
+        <label>
+            Nombre
+            <input type="text" th:field="*{nombre}" maxlength="120">
+            <span class="error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+        </label>
+
+        <label>
+            Descripcion
+            <textarea th:field="*{descripcion}" rows="3" maxlength="500"></textarea>
+            <span class="error" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
+        </label>
+
+        <label>
+            Precio
+            <input type="number" th:field="*{precio}" step="0.01" min="0.01">
+            <span class="error" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></span>
+        </label>
+
+        <label class="casilla">
+            <input type="checkbox" th:field="*{disponible}">
+            Disponible
+        </label>
+
+        <div class="acciones">
+            <button type="submit">Guardar</button>
+            <a class="boton boton-suave" th:href="@{/productos}">Cancelar</a>
+        </div>
+    </form>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

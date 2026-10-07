@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Inicio')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: cabecera}"></header>
+
+<main class="contenido">
+    <h1>Restaurante</h1>
+    <p>Esqueleto Spring Boot conectado a PostgreSQL.</p>
+
+    <div class="tarjetas">
+        <div class="tarjeta">
+            <span class="cifra" th:text="${totalRestaurantes}">0</span>
+            <span class="rotulo">Restaurantes registrados</span>
+        </div>
+        <div class="tarjeta">
+            <a class="enlace-tarjeta" th:href="@{/productos}">Ver el menu de productos</a>
+        </div>
+    </div>
+
+    <h2>Restaurantes</h2>
+    <table class="tabla" th:if="${!#lists.isEmpty(restaurantes)}">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>NIT</th>
+            <th>Direccion</th>
+            <th>Telefono</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="r : ${restaurantes}">
+            <td th:text="${r.id}">1</td>
+            <td th:text="${r.nombre}">Nombre</td>
+            <td th:text="${r.nit}">NIT</td>
+            <td th:text="${r.direccion}">Direccion</td>
+            <td th:text="${r.telefono}">Telefono</td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(restaurantes)}" class="vacio">
+        No hay restaurantes registrados todavia.
+    </p>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

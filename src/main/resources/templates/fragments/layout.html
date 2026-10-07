@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${titulo} + ' | Restaurante'">Restaurante</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+
+<body>
+
+<header th:fragment="cabecera" class="barra">
+    <a class="marca" th:href="@{/}">Restaurante</a>
+    <nav>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/productos}">Productos</a>
+        <a th:href="@{/productos/nuevo}">Nuevo producto</a>
+    </nav>
+</header>
+
+<footer th:fragment="pie" class="pie">
+    <small>ProyectoRestaurantePrueba &mdash; Spring Boot + PostgreSQL</small>
+</footer>
+
+</body>
+</html>

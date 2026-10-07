@@ -1,0 +1,30 @@
+# Compilados
+target/
+build/
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Secretos y variables de entorno: nunca se versionan.
+.env
+.env.*
+!.env.example
+application-local.properties
+
+# Seeds y respaldos con datos reales
+*-seed.sql
+db/

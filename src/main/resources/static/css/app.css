@@ -1,0 +1,257 @@
+:root {
+    --fondo: #f6f5f2;
+    --superficie: #ffffff;
+    --texto: #22201d;
+    --tenue: #6f6a63;
+    --acento: #9c3d2e;
+    --borde: #e3dfd8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--fondo);
+    color: var(--texto);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+}
+
+.barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: var(--superficie);
+    border-bottom: 1px solid var(--borde);
+    flex-wrap: wrap;
+}
+
+.marca {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--acento);
+    text-decoration: none;
+}
+
+.barra nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.barra nav a {
+    color: var(--texto);
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.barra nav a:hover {
+    color: var(--acento);
+    text-decoration: underline;
+}
+
+.contenido {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+h1 {
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    border-bottom: 1px solid var(--borde);
+    padding-bottom: 0.4rem;
+}
+
+.tarjetas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+}
+
+.tarjeta {
+    flex: 1 1 200px;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.cifra {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--acento);
+}
+
+.rotulo {
+    color: var(--tenue);
+    font-size: 0.9rem;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tabla th,
+.tabla td {
+    padding: 0.7rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid var(--borde);
+    font-size: 0.95rem;
+}
+
+.tabla th {
+    background: #faf8f5;
+    font-weight: 600;
+}
+
+.tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.acciones {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.filtro,
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    max-width: 520px;
+}
+
+.filtro {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: none;
+}
+
+.formulario label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.92rem;
+    color: var(--tenue);
+}
+
+.formulario label.casilla {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--texto);
+}
+
+input,
+textarea {
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--borde);
+    border-radius: 7px;
+    font: inherit;
+    background: #fff;
+    color: var(--texto);
+}
+
+input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+}
+
+button,
+.boton {
+    display: inline-block;
+    padding: 0.55rem 1.1rem;
+    border: none;
+    border-radius: 7px;
+    background: var(--acento);
+    color: #fff;
+    font: inherit;
+    font-size: 0.92rem;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.boton-suave {
+    background: #e8e3da;
+    color: var(--texto);
+}
+
+.boton-peligro {
+    background: #a83232;
+    padding: 0.3rem 0.7rem;
+    font-size: 0.85rem;
+}
+
+.aviso-ok {
+    background: #e6f2e6;
+    border: 1px solid #b6d8b6;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.aviso-error,
+.error {
+    color: #8d2b2b;
+}
+
+.aviso-error {
+    background: #f7e6e6;
+    border: 1px solid #e2b6b6;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.error {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.vacio {
+    color: var(--tenue);
+    font-style: italic;
+}
+
+.enlace-tarjeta {
+    color: var(--acento);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.enlace-tarjeta:hover {
+    text-decoration: underline;
+}
+
+.pie {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--tenue);
+    border-top: 1px solid var(--borde);
+    background: var(--superficie);
+}

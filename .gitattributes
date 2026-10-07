@@ -1,0 +1,13 @@
+# Normaliza los finales de linea para evitar diffs ruidosos entre Windows y Linux.
+* text=auto eol=lf
+
+# Los archivos de Windows por convencion van con CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Los binarios no se tocan.
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.jar binary
