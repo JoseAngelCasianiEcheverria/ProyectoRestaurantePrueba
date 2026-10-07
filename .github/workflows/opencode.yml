@@ -1,0 +1,80 @@
+name: OpenCode Agent
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  schedule:
+    - cron: "0 11 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  opencode-comentario:
+    name: Responde a /oc en issues y pull requests
+    if: >-
+      github.event_name != 'schedule' &&
+      github.event_name != 'workflow_dispatch' &&
+      (contains(github.event.comment.body, '/oc') ||
+       contains(github.event.comment.body, '/opencode'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Ejecutar el agente
+        uses: anomalyco/opencode/github@latest
+        with:
+          model: opencode/space-bunny-free
+          use_github_token: true
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  opencode-nocturno:
+    name: Revision nocturna automatica
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Ejecutar el agente
+        uses: anomalyco/opencode/github@latest
+        with:
+          model: opencode/space-bunny-free
+          use_github_token: true
+          prompt: |
+            Haz una revision tecnica de este repositorio Spring Boot y busca
+            unicamente defectos verificables en el codigo: errores de logica,
+            consultas JPA que puedan fallar, validacion ausente en endpoints de
+            escritura, fugas de recursos o de transacciones, y credenciales
+            o datos sensibles que esten versionados por error.
+
+            Reglas:
+            - No cambies dependencias, no migres versiones y no reformatees codigo.
+            - Antes de reportar algo, comprobalo leyendo el archivo y citando la
+              ruta y el numero de linea.
+            - Si no encuentras nada con certeza, no abras nada y termina.
+            - Si encuentras algo, abre un issue por hallazgo con la ruta, la
+              linea, el motivo y una propuesta de correccion.
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
